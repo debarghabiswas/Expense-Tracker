@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0e151d">
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Pennywise home">
+        <span class="brand-icon">₹</span>
+        <span>Pennywise</span>
+      </a>
+      <span class="local-badge"><span></span> Saved on this device</span>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow">YOUR PERSONAL FINANCE</p>
+      <h1>Expense tracker</h1>
+      <p class="intro-copy">A clearer picture of where your money goes.</p>
+    </section>
+
+    <section class="summary" aria-label="Expense summary">
+      <article class="summary-card total-card">
+        <p>Total expenses</p>
+        <strong id="totalAmount">₹0.00</strong>
+        <span>Across all recorded expenses</span>
+      </article>
+      <article class="summary-card">
+        <p>This month</p>
+        <strong id="monthAmount">₹0.00</strong>
+        <span>Spent this calendar month</span>
+      </article>
+      <article class="summary-card">
+        <p>Transactions</p>
+        <strong id="expenseCount">0</strong>
+        <span>Expenses recorded</span>
+      </article>
+    </section>
+
+    <section class="workspace">
+      <form class="panel expense-form" id="expenseForm">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">STAY ON TOP OF IT</p>
+            <h2>Add an expense</h2>
+          </div>
+          <span class="heading-icon" aria-hidden="true">＋</span>
+        </div>
+
+        <label for="description">Description</label>
+        <input id="description" name="description" type="text"
+               placeholder="e.g. Weekly groceries" maxlength="70" required>
+
+        <label for="amount">Amount</label>
+        <div class="amount-input">
+          <span aria-hidden="true">₹</span>
+          <input id="amount" name="amount" type="number" min="0.01"
+                 step="0.01" placeholder="0.00" required>
+        </div>
+
+        <div class="form-row">
+          <div>
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Bills">Bills</option>
+              <option value="Health">Health</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="date">Date</label>
+            <input id="date" name="date" type="date" required>
+          </div>
+        </div>
+
+        <button class="primary-button" type="submit">Add expense <span>→</span></button>
+        <p class="form-message" id="formMessage" role="status"></p>
+      </form>
+
+      <section class="panel expenses-panel">
+        <div class="list-heading">
+          <div>
+            <p class="eyebrow">YOUR ACTIVITY</p>
+            <h2>Recent expenses</h2>
+          </div>
+          <span class="expense-count" id="listCount">0 items</span>
+        </div>
+
+        <div class="filters">
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="searchInput" type="search" placeholder="Search expenses"
+                   aria-label="Search expenses">
+          </label>
+          <select id="filterCategory" aria-label="Filter by category">
+            <option value="">All categories</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+            <option value="Health">Health</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="expense-list" id="expenseList"></div>
+        <div class="empty-state" id="emptyState">
+          <span class="empty-icon" aria-hidden="true">✳</span>
+          <h3>No expenses yet</h3>
+          <p>Add your first expense to get started.</p>
+        </div>
+      </section>
+    </section>
+
+    <footer>Small steps make a big difference.</footer>
+  </main>
+</body>
+</html>

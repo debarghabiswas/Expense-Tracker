@@ -4,11 +4,13 @@ A simple, responsive expense tracker for recording everyday spending. Add expens
 
 ## Features
 
-- Add expenses with a description, amount, category, and date
-- View total expenses, this month's spending, and transaction count
+- Add, edit, and delete income and expense transactions
+- View total income, total expenses, net balance, this month's spending, and transaction count
+- Set monthly spending limits by category and track remaining or over-budget amounts
+- Visualize spending by category and monthly totals for the last six months
 - Search expenses by description and filter by category
 - Delete expenses when they are no longer needed
-- Save expenses in your browser with `localStorage`
+- Save transactions and budgets in your browser with `localStorage`
 - Display amounts in Indian Rupees (INR)
 - Responsive layout for desktop and mobile screens
 
@@ -31,15 +33,15 @@ The page loads jQuery from the jQuery CDN, so an internet connection is needed f
 
 ## Usage
 
-1. Enter a description and amount.
-2. Select a category and date.
-3. Select **Add expense**.
-4. Review totals and use search or category filters to find expenses.
-5. Select the **×** button next to an expense to delete it.
+1. Choose whether the transaction is income or an expense.
+2. Enter a description and amount, then select a category and date.
+3. Select **Add transaction**. Use **Edit** or **×** on a transaction to update or delete it.
+4. Set a category and monthly limit in the **Category budgets** section.
+5. Review the dashboard, charts, remaining budget, and use search or filters to find transactions.
 
 ## Data and Privacy
 
-Expenses are stored locally in the current browser using `localStorage`. They are not sent to a server. Clearing browser data or switching browsers/devices may remove or hide saved expenses.
+Transactions and budgets are stored locally in the current browser using `localStorage`. They are not sent to a server. Clearing browser data or switching browsers/devices may remove or hide saved data.
 
 ## Project Structure
 

@@ -25,21 +25,91 @@
       <p class="intro-copy">A clearer picture of where your money goes.</p>
     </section>
 
-    <section class="summary" aria-label="Expense summary">
+    <section class="summary" aria-label="Financial summary">
       <article class="summary-card total-card">
         <p>Total expenses</p>
         <strong id="totalAmount">₹0.00</strong>
         <span>Across all recorded expenses</span>
       </article>
+      <article class="summary-card income-card">
+        <p>Total income</p>
+        <strong id="incomeAmount">₹0.00</strong>
+        <span>Across all recorded income</span>
+      </article>
+      <article class="summary-card balance-card">
+        <p>Net balance</p>
+        <strong id="balanceAmount">₹0.00</strong>
+        <span>Income minus expenses</span>
+      </article>
       <article class="summary-card">
-        <p>This month</p>
+        <p>Spent this month</p>
         <strong id="monthAmount">₹0.00</strong>
         <span>Spent this calendar month</span>
       </article>
       <article class="summary-card">
         <p>Transactions</p>
-        <strong id="expenseCount">0</strong>
-        <span>Expenses recorded</span>
+        <strong id="transactionCount">0</strong>
+        <span>Income and expenses recorded</span>
+      </article>
+    </section>
+
+    <section class="panel budgets-panel" aria-labelledby="budgetsTitle">
+      <div class="list-heading">
+        <div>
+          <p class="eyebrow">MONTHLY SPENDING LIMITS</p>
+          <h2 id="budgetsTitle">Category budgets</h2>
+        </div>
+      </div>
+      <form class="budget-form" id="budgetForm">
+        <div>
+          <label for="budgetCategory">Category</label>
+          <select id="budgetCategory" name="category" required>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+            <option value="Health">Health</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="budgetLimit">Monthly limit</label>
+          <div class="amount-input">
+            <span aria-hidden="true">₹</span>
+            <input id="budgetLimit" name="limit" type="number" min="0.01"
+                   step="0.01" placeholder="0.00" required>
+          </div>
+        </div>
+        <button class="primary-button" type="submit">Set budget <span>→</span></button>
+      </form>
+      <p class="form-message" id="budgetMessage" role="status"></p>
+      <div class="budget-list" id="budgetList" role="list"></div>
+      <p class="budget-empty" id="budgetEmpty">Set a monthly limit to start tracking a category budget.</p>
+    </section>
+
+    <section class="charts" aria-label="Expense charts">
+      <article class="panel chart-panel">
+        <div class="list-heading">
+          <div>
+            <p class="eyebrow">SPENDING BREAKDOWN</p>
+            <h2>By category</h2>
+          </div>
+        </div>
+        <div class="category-chart" id="categoryChart" role="list"
+             aria-label="Expenses grouped by category"></div>
+        <p class="chart-empty" id="categoryChartEmpty">Add expenses to see your category breakdown.</p>
+      </article>
+
+      <article class="panel chart-panel">
+        <div class="list-heading">
+          <div>
+            <p class="eyebrow">LAST SIX MONTHS</p>
+            <h2>Monthly spending</h2>
+          </div>
+        </div>
+        <div class="monthly-chart" id="monthlyChart" role="list"
+             aria-label="Expenses for the last six months"></div>
+        <p class="chart-empty" id="monthlyChartEmpty">Add expenses to see your monthly trends.</p>
       </article>
     </section>
 
@@ -48,10 +118,16 @@
         <div class="panel-heading">
           <div>
             <p class="eyebrow">STAY ON TOP OF IT</p>
-            <h2>Add an expense</h2>
+            <h2 id="transactionFormTitle">Add a transaction</h2>
           </div>
           <span class="heading-icon" aria-hidden="true">＋</span>
         </div>
+
+        <label for="transactionType">Transaction type</label>
+        <select id="transactionType" name="type" required>
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
 
         <label for="description">Description</label>
         <input id="description" name="description" type="text"
@@ -82,7 +158,8 @@
           </div>
         </div>
 
-        <button class="primary-button" type="submit">Add expense <span>→</span></button>
+        <button class="primary-button" id="transactionSubmit" type="submit">Add transaction <span>→</span></button>
+        <button class="secondary-button" id="cancelEdit" type="button" hidden>Cancel editing</button>
         <p class="form-message" id="formMessage" role="status"></p>
       </form>
 
@@ -90,7 +167,7 @@
         <div class="list-heading">
           <div>
             <p class="eyebrow">YOUR ACTIVITY</p>
-            <h2>Recent expenses</h2>
+            <h2>Recent transactions</h2>
           </div>
           <span class="expense-count" id="listCount">0 items</span>
         </div>
@@ -98,8 +175,8 @@
         <div class="filters">
           <label class="search-box">
             <span aria-hidden="true">⌕</span>
-            <input id="searchInput" type="search" placeholder="Search expenses"
-                   aria-label="Search expenses">
+            <input id="searchInput" type="search" placeholder="Search transactions"
+                   aria-label="Search transactions">
           </label>
           <select id="filterCategory" aria-label="Filter by category">
             <option value="">All categories</option>
@@ -110,13 +187,18 @@
             <option value="Health">Health</option>
             <option value="Other">Other</option>
           </select>
+          <select id="filterType" aria-label="Filter by transaction type">
+            <option value="">All types</option>
+            <option value="expense">Expenses</option>
+            <option value="income">Income</option>
+          </select>
         </div>
 
         <div class="expense-list" id="expenseList"></div>
         <div class="empty-state" id="emptyState">
           <span class="empty-icon" aria-hidden="true">✳</span>
-          <h3>No expenses yet</h3>
-          <p>Add your first expense to get started.</p>
+          <h3>No transactions yet</h3>
+          <p>Add your first income or expense to get started.</p>
         </div>
       </section>
     </section>
